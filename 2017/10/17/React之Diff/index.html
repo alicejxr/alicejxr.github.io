@@ -93,17 +93,17 @@
   };
 </script>
 
-  <meta name="description" content="前言React 之所以高效有一部分原因是因为 Virtual DOM 和 diff 算法的完美结合。React Diff 会帮助我们计算出 Virtual DOM 真正变化的部分，只针对变化部分进行实际的 DOM 操作，并不对整个页面进行重新渲染，从而大大提高了渲染的效率。 但是 React 的 Diff 算法与传统的 Diff 算法又有不同，React 技术团队对 Diff 算法进行优化。 传统">
+  <meta name="description" content="前言React 之所以高效有一部分原因是因为 Virtual DOM 和 diff 算法的完美结合。React Diff 会帮助我们计算出 Virtual DOM 真正变化的部分，只针对变化部分进行实际的 DOM 操作，并不对整个页面进行重新渲染，从而大大提高了渲染的效率。 但是 React 的 Diff 算法与传统的 Diff 算法又有不同，React 技术团队对 Diff 算法进行优化。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React 之 Diff">
 <meta property="og:url" content="http://yoursite.com/2017/10/17/React之Diff/index.html">
 <meta property="og:site_name" content="Alice&#39;s blog">
-<meta property="og:description" content="前言React 之所以高效有一部分原因是因为 Virtual DOM 和 diff 算法的完美结合。React Diff 会帮助我们计算出 Virtual DOM 真正变化的部分，只针对变化部分进行实际的 DOM 操作，并不对整个页面进行重新渲染，从而大大提高了渲染的效率。 但是 React 的 Diff 算法与传统的 Diff 算法又有不同，React 技术团队对 Diff 算法进行优化。 传统">
+<meta property="og:description" content="前言React 之所以高效有一部分原因是因为 Virtual DOM 和 diff 算法的完美结合。React Diff 会帮助我们计算出 Virtual DOM 真正变化的部分，只针对变化部分进行实际的 DOM 操作，并不对整个页面进行重新渲染，从而大大提高了渲染的效率。 但是 React 的 Diff 算法与传统的 Diff 算法又有不同，React 技术团队对 Diff 算法进行优化。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-07T05:47:25.783Z">
+<meta property="og:updated_time" content="2020-03-04T09:06:33.566Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React 之 Diff">
-<meta name="twitter:description" content="前言React 之所以高效有一部分原因是因为 Virtual DOM 和 diff 算法的完美结合。React Diff 会帮助我们计算出 Virtual DOM 真正变化的部分，只针对变化部分进行实际的 DOM 操作，并不对整个页面进行重新渲染，从而大大提高了渲染的效率。 但是 React 的 Diff 算法与传统的 Diff 算法又有不同，React 技术团队对 Diff 算法进行优化。 传统">
+<meta name="twitter:description" content="前言React 之所以高效有一部分原因是因为 Virtual DOM 和 diff 算法的完美结合。React Diff 会帮助我们计算出 Virtual DOM 真正变化的部分，只针对变化部分进行实际的 DOM 操作，并不对整个页面进行重新渲染，从而大大提高了渲染的效率。 但是 React 的 Diff 算法与传统的 Diff 算法又有不同，React 技术团队对 Diff 算法进行优化。">
 
 
 
@@ -371,7 +371,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-07 13:47:25" itemprop="dateModified" datetime="2019-08-07T13:47:25+08:00">2019-08-07</time>
+                <time title="修改时间：2020-03-04 17:06:33" itemprop="dateModified" datetime="2020-03-04T17:06:33+08:00">2020-03-04</time>
               </span>
             
           
@@ -412,6 +412,8 @@
       
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a><a href="https://pororoj.github.io/2017/10/17/React%E4%B9%8BDiff/#%E5%89%8D%E8%A8%80" title="前言" target="_blank" rel="noopener"></a>前言</h1><p>React 之所以高效有一部分原因是因为 Virtual DOM 和 diff 算法的完美结合。React Diff 会帮助我们计算出 Virtual DOM 真正变化的部分，只针对变化部分进行实际的 DOM 操作，并不对整个页面进行重新渲染，从而大大提高了渲染的效率。</p>
 <p>但是 React 的 Diff 算法与传统的 Diff 算法又有不同，React 技术团队对 Diff 算法进行优化。</p>
+<a id="more"></a>
+
 <p>传统 Diff 算法的复杂度达到了 O(n^3)（n 为树中的总结点数）,而 React 将算法的复杂度降低到 O(n),使 Diff 算法更加稳定高效。</p>
 <h1 id="React-Diff"><a href="#React-Diff" class="headerlink" title="React Diff"></a><a href="https://pororoj.github.io/2017/10/17/React%E4%B9%8BDiff/#React-Diff" title="React Diff" target="_blank" rel="noopener"></a>React Diff</h1><h2 id="tree-diff"><a href="#tree-diff" class="headerlink" title="tree diff"></a><a href="https://pororoj.github.io/2017/10/17/React%E4%B9%8BDiff/#tree-diff" title="tree diff" target="_blank" rel="noopener"></a>tree diff</h2><p><strong>由于 Web UI 中 DOM 节点跨层级的移动特别少，可以忽略不计。</strong></p>
 <p>React 对树的算法进行优化，对树进行分层比较，只会比较两棵树的同一层级节点。当节点已不存在，则该层级节点被完全删除掉，不进行进一步比较。因而，一次遍历就可以完成整个 DOM 树的比较。</p>
@@ -705,7 +707,7 @@ _mountChildAtIndex: function(
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -765,7 +767,7 @@ _mountChildAtIndex: function(
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

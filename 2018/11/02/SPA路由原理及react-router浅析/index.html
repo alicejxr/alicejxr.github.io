@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="Alice&#39;s blog">
 <meta property="og:description" content="对于单页应用来说，如果没有路由系统，就会出现进行多次跳转后由于 url 未发生变化，页面刷新后又回到最初始的状态，用户体验很不友好；并且由于缺少路由，对网站的 SEO 也很不友好。  SPA 路由原理Hash 路由原理及简单实现url 上的 hash 以 # 开头，主要作为锚点来使用，方便页面定位到相应位置。每次 # 后内容改变不会引起页面刷新，而且每次变化都会触发 hashChange 函数，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-07T05:48:22.325Z">
+<meta property="og:updated_time" content="2020-03-04T09:07:20.751Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SPA 路由原理及 react-router 浅析">
 <meta name="twitter:description" content="对于单页应用来说，如果没有路由系统，就会出现进行多次跳转后由于 url 未发生变化，页面刷新后又回到最初始的状态，用户体验很不友好；并且由于缺少路由，对网站的 SEO 也很不友好。  SPA 路由原理Hash 路由原理及简单实现url 上的 hash 以 # 开头，主要作为锚点来使用，方便页面定位到相应位置。每次 # 后内容改变不会引起页面刷新，而且每次变化都会触发 hashChange 函数，">
@@ -371,7 +371,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-07 13:48:22" itemprop="dateModified" datetime="2019-08-07T13:48:22+08:00">2019-08-07</time>
+                <time title="修改时间：2020-03-04 17:07:20" itemprop="dateModified" datetime="2020-03-04T17:07:20+08:00">2020-03-04</time>
               </span>
             
           
@@ -431,6 +431,8 @@
     window.addEventListener(&apos;hashchange&apos;, this.updateView.bind(this), false) // 将 updateView 设置为 hashchange 的回调函数，每次 hash 变化都触发页面刷新
   }
 }</code></pre><p><a href="https://codepen.io/pororo/pen/YOXwWZ?editors=1000" target="_blank" rel="noopener">Hash 简单实现 demo</a></p>
+<a id="more"></a>
+
 <h2 id="history-路由原理及简单实现"><a href="#history-路由原理及简单实现" class="headerlink" title="history 路由原理及简单实现"></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#history-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0" title="history 路由原理及简单实现" target="_blank" rel="noopener"></a>history 路由原理及简单实现</h2><p>History 路由是基于 HTML5 规范，在 HTML5 规范中提供了 <code>history.pushState</code> 和 <code>history.replaceState</code> 来进行路由控制。</p>
 <p>执行 <code>history.pushState({}, null, &#39;/about&#39;)</code> <code>history.replaceState({}, null, &#39;/about&#39;)</code>时，虽然页面 url 改变，但是不会刷新页面。</p>
 <p>参数说明：</p>
@@ -1298,8 +1300,8 @@ export default StaticRouter;</code></pre><p>StaticRouter 主要用在测试环�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/05/Promise之串行执行的实现/" rel="next" title="Promise 之串行执行的实现">
-                <i class="fa fa-chevron-left"></i> Promise 之串行执行的实现
+              <a href="/2018/04/05/CSS中的层叠规则/" rel="next" title="CSS 中的层叠规则">
+                <i class="fa fa-chevron-left"></i> CSS 中的层叠规则
               </a>
             
           </div>
@@ -1307,6 +1309,10 @@ export default StaticRouter;</code></pre><p>StaticRouter 主要用在测试环�
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/02/React中SVG的处理方式/" rel="prev" title="React中SVG的处理方式">
+                React中SVG的处理方式 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -1376,7 +1382,7 @@ export default StaticRouter;</code></pre><p>StaticRouter 主要用在测试环�
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1436,7 +1442,7 @@ export default StaticRouter;</code></pre><p>StaticRouter 主要用在测试环�
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

@@ -93,17 +93,17 @@
   };
 </script>
 
-  <meta name="description" content="Promises/A+规范了解一下？  误区通常如果说要实现 Promise 的串行执行，对于初学者（比如说我这种小菜鸟）来说，会不假思索的写出如下代码： function executePromises(promises) {   var result = Promise.resolve();   promises.forEach(function (promise) {     result">
+  <meta name="description" content="前言经常会遇到一些需求，要求用户长按页面中的海报，可以保存海报图片到本地。以提高营销活动的转化率。 思路在浏览器中可以将 dom 通过 canvas 的 drawImage() 方法画在 canvas 上，最后再通过 canvas 的 toBlob()、toDataURL() 、getImageData() 将图片数据从 canvas 中导出。 问题在实现的过程中可能会遇到 canvas 被污染（">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Promise 之串行执行的实现">
-<meta property="og:url" content="http://yoursite.com/2018/04/05/Promise之串行执行的实现/index.html">
+<meta property="og:title" content="使用canvas生成图片遇到的问题">
+<meta property="og:url" content="http://yoursite.com/2020/04/01/使用canvas生成图片遇到的问题/index.html">
 <meta property="og:site_name" content="Alice&#39;s blog">
-<meta property="og:description" content="Promises/A+规范了解一下？  误区通常如果说要实现 Promise 的串行执行，对于初学者（比如说我这种小菜鸟）来说，会不假思索的写出如下代码： function executePromises(promises) {   var result = Promise.resolve();   promises.forEach(function (promise) {     result">
+<meta property="og:description" content="前言经常会遇到一些需求，要求用户长按页面中的海报，可以保存海报图片到本地。以提高营销活动的转化率。 思路在浏览器中可以将 dom 通过 canvas 的 drawImage() 方法画在 canvas 上，最后再通过 canvas 的 toBlob()、toDataURL() 、getImageData() 将图片数据从 canvas 中导出。 问题在实现的过程中可能会遇到 canvas 被污染（">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-04T09:07:46.631Z">
+<meta property="og:updated_time" content="2020-04-01T08:28:22.869Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Promise 之串行执行的实现">
-<meta name="twitter:description" content="Promises/A+规范了解一下？  误区通常如果说要实现 Promise 的串行执行，对于初学者（比如说我这种小菜鸟）来说，会不假思索的写出如下代码： function executePromises(promises) {   var result = Promise.resolve();   promises.forEach(function (promise) {     result">
+<meta name="twitter:title" content="使用canvas生成图片遇到的问题">
+<meta name="twitter:description" content="前言经常会遇到一些需求，要求用户长按页面中的海报，可以保存海报图片到本地。以提高营销活动的转化率。 思路在浏览器中可以将 dom 通过 canvas 的 drawImage() 方法画在 canvas 上，最后再通过 canvas 的 toBlob()、toDataURL() 、getImageData() 将图片数据从 canvas 中导出。 问题在实现的过程中可能会遇到 canvas 被污染（">
 
 
 
@@ -111,7 +111,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2018/04/05/Promise之串行执行的实现/">
+  <link rel="canonical" href="http://yoursite.com/2020/04/01/使用canvas生成图片遇到的问题/">
 
 
 
@@ -122,7 +122,7 @@
 </script>
 
   
-  <title>Promise 之串行执行的实现 | Alice's blog</title>
+  <title>使用canvas生成图片遇到的问题 | Alice's blog</title>
   
 
 
@@ -313,7 +313,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/05/Promise之串行执行的实现/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/01/使用canvas生成图片遇到的问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Alice Jia">
@@ -330,7 +330,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Promise 之串行执行的实现
+          <h1 class="post-title" itemprop="name headline">使用canvas生成图片遇到的问题
 
               
             
@@ -356,23 +356,13 @@
                 
               
 
-              <time title="创建时间：2018-04-05 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-05T00:00:00+08:00">2018-04-05</time>
+              <time title="创建时间：2020-04-01 14:14:39 / 修改时间：16:28:22" itemprop="dateCreated datePublished" datetime="2020-04-01T14:14:39+08:00">2020-04-01</time>
             </span>
           
 
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-03-04 17:07:46" itemprop="dateModified" datetime="2020-03-04T17:07:46+08:00">2020-03-04</time>
-              </span>
             
           
 
@@ -410,43 +400,44 @@
       
 
       
-        <blockquote>
-<p><a href="http://www.ituring.com.cn/article/66566" target="_blank" rel="noopener">Promises/A+规范</a>了解一下？</p>
-</blockquote>
-<h1 id="误区"><a href="#误区" class="headerlink" title="误区"></a><a href="https://pororoj.github.io/2018/04/05/Promise%E7%9A%84%E4%B8%B2%E8%A1%8C%E6%89%A7%E8%A1%8C/#%E8%AF%AF%E5%8C%BA" title="误区" target="_blank" rel="noopener"></a>误区</h1><p>通常如果说要实现 Promise 的串行执行，对于初学者（比如说我这种小菜鸟）来说，会不假思索的写出如下代码：</p>
-<pre><code>function executePromises(promises) {
-  var result = Promise.resolve();
-  promises.forEach(function (promise) {
-    result = result.then(promise);
-  });
-  return result;
-}</code></pre><p>但其实发现，和用 <code>Promise.all()</code> 实现的的效果是一样，都是并行执行。</p>
-<a id="more"></a>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>经常会遇到一些需求，要求用户长按页面中的海报，可以保存海报图片到本地。以提高营销活动的转化率。</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>在浏览器中可以将 dom 通过 canvas 的 <code>drawImage()</code> 方法画在 canvas 上，最后再通过 canvas 的 toBlob()、toDataURL() 、getImageData() 将图片数据从 canvas 中导出。</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>在实现的过程中可能会遇到 canvas 被污染（tainted canvases）的问题。</p>
+<h2 id="什么是-canvas-被污染（tainted-canvases）呢？"><a href="#什么是-canvas-被污染（tainted-canvases）呢？" class="headerlink" title="什么是 canvas 被污染（tainted canvases）呢？"></a>什么是 canvas 被污染（tainted canvases）呢？</h2><a id="more"></a>
 
-<p>那这是什么原因呢？</p>
-<p><strong>依照 promises 规范，一旦一个 promise 被创建，它就被执行了。</strong></p>
-<p>promises.forEach 本意是顺序执行 promise，也就是依次的，然而上面的代码，实际上 promises 并不会等待上一个 promise 结束就会开始执行。</p>
-<h1 id="正解"><a href="#正解" class="headerlink" title="正解"></a><a href="https://pororoj.github.io/2018/04/05/Promise%E7%9A%84%E4%B8%B2%E8%A1%8C%E6%89%A7%E8%A1%8C/#%E6%AD%A3%E8%A7%A3" title="正解" target="_blank" rel="noopener"></a>正解</h1><p>所以实现的关键点就在于，在执行 <code>executePromise</code> 之前不会创建 promise。</p>
-<p>所以可以创建一个类似于下面的函数：</p>
-<pre><code>function createPromise() {
-  return new Promise((resolve)=&gt;{
-      doSomthing()
-      resolve()
-  });
-}</code></pre><p>然后将函数 <code>executePromises</code> 修改为：</p>
-<pre><code>function executePromises(createPromises) {
-  var result = Promise.resolve();
-  createPromises.forEach(function (createPromise) {
-    result = result.then(createPromise);
-  });
-  return result;
-}</code></pre><p>有了这两个函数，我们就可以使多个 Promise 串执行~</p>
-<h1 id="解释"><a href="#解释" class="headerlink" title="解释"></a><a href="https://pororoj.github.io/2018/04/05/Promise%E7%9A%84%E4%B8%B2%E8%A1%8C%E6%89%A7%E8%A1%8C/#%E8%A7%A3%E9%87%8A" title="解释" target="_blank" rel="noopener"></a>解释</h1><p>为什么这样可以呢？</p>
-<p>因为一个 createPromise 在被执行之前并不会创建 promise。它和一个 then 函数一样。</p>
-<p>如果你查看上面的 <code>executePromises()</code> 函数，然后想象 <code>createPromise</code> 被包裹在 result.then(…) 之中,就像下面的样子：</p>
-<pre><code>result.resolve()
-.then(createPromise)
-.then(createPromise)...</code></pre><p>是不是就秒懂啦<del>这样就实现了 Promise 的串行执行</del></p>
+<p>参考 MDN：</p>
+<blockquote>
+<h2 id="安全性和“被污染”的-canvas"><a href="#安全性和“被污染”的-canvas" class="headerlink" title="安全性和“被污染”的 canvas"></a>安全性和“被污染”的 canvas</h2><p>由于在 <code>&lt;canvas&gt;</code> 位图中的像素可能来自多种来源，包括从其他主机检索的图像或视频，因此不可避免的会出现安全问题。</p>
+<p>尽管不通过 CORS 就可以在 <code>&lt;canvas&gt;</code> 中使用其他来源的图片，但是这会<strong>污染</strong>画布，并且不再认为是安全的画布，这将可能在 <code>&lt;canvas&gt;</code> 检索数据过程中引发异常。</p>
+<p>如果从外部引入的 HTML <code>&lt;img&gt;</code>或 <code>SVG</code>  ，并且图像源不符合规则，将会被阻止从 <code>&lt;canvas&gt;</code> 中读取数据。</p>
+<p>在”被污染”的画布中调用以下方法将会抛出安全错误：</p>
+<ul>
+<li>在 <code>&lt;canvas&gt;</code> 的上下文上调用<code>getImageData()</code></li>
+<li>在<code>&lt;canvas&gt;</code> 上调用 <code>toBlob()</code></li>
+<li>在 <code>&lt;canvas&gt;</code> 上调用  <code>toDataURL()</code></li>
+</ul>
+<p>这种机制可以避免未经许可拉取远程网站信息而导致的用户隐私泄露。</p>
+</blockquote>
+<p>简单来说就是为了：避免未经许可拉取远程网站信息而导致的用户隐私泄露。</p>
+<h2 id="如何判断-canvas-被污染？"><a href="#如何判断-canvas-被污染？" class="headerlink" title="如何判断 canvas 被污染？"></a>如何判断 canvas 被污染？</h2><ol>
+<li><code>&lt;canvas&gt;</code> 中 <code>&lt;img&gt;</code> 的 src 使用的 url 跨域</li>
+<li>在 Safari 浏览器中<code>&lt;canvas&gt;</code> 中 <code>&lt;svg&gt;</code> 含有 <code>&lt;foreignObject&gt;</code> （由于<code>&lt;foreignObject&gt;</code> 中会包含一些带有交互性的 html ）。</li>
+</ol>
+<h2 id="如何解决-canvas-被污染产生的跨域问题？"><a href="#如何解决-canvas-被污染产生的跨域问题？" class="headerlink" title="如何解决 canvas 被污染产生的跨域问题？"></a>如何解决 canvas 被污染产生的跨域问题？</h2><ol>
+<li><p>img 的 crossOrigin 属性设置为 anonymous</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> img = <span class="keyword">new</span> Image();</span><br><span class="line">img.crossOrigin = <span class="string">'anonymous'</span>; <span class="comment">// crossOrigin 一定要写在最前面</span></span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img crossorigin=<span class="string">"anonymous"</span> src=<span class="string">"..."</span>&gt; crossOrigin 一定要写在最前面</span><br></pre></td></tr></table></figure>
+
+<p>同时，服务器响应也需要设置正确的 Access-Control-Allow-Origin<br>PS：在 Safari 中如果图片使用的是本地图片（图片地址不是以 http(s)开头）即使设置了<code>crossorigin=&quot;anonymous&quot;</code> 也会报错，此时需要判断图片的地址是否以 http 开头。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (path.substring(<span class="number">0</span>, <span class="number">4</span>).toLowerCase() === <span class="string">'http'</span>) &#123;</span><br><span class="line">  img.crossOrigin = <span class="string">'anonymous'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将图片转换成无交互的 base64 格式</p>
+</li>
+</ol>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>最后选择使用</p>
+<p>来生成图片，html2canvas 内部已经处理好了 canvas 被污染的问题，看它的源码也会有很大的收获。</p>
 
       
     </div>
@@ -481,8 +472,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/05/CSS中的层叠规则/" rel="next" title="CSS 中的层叠规则">
-                <i class="fa fa-chevron-left"></i> CSS 中的层叠规则
+              <a href="/2020/01/02/React中SVG的处理方式/" rel="next" title="React中SVG的处理方式">
+                <i class="fa fa-chevron-left"></i> React中SVG的处理方式
               </a>
             
           </div>
@@ -490,10 +481,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/02/SPA路由原理及react-router浅析/" rel="prev" title="SPA 路由原理及 react-router 浅析">
-                SPA 路由原理及 react-router 浅析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -619,7 +606,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#误区"><span class="nav-number">1.</span> <span class="nav-text">误区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正解"><span class="nav-number">2.</span> <span class="nav-text">正解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解释"><span class="nav-number">3.</span> <span class="nav-text">解释</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">3.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-canvas-被污染（tainted-canvases）呢？"><span class="nav-number">3.1.</span> <span class="nav-text">什么是 canvas 被污染（tainted canvases）呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全性和“被污染”的-canvas"><span class="nav-number">3.2.</span> <span class="nav-text">安全性和“被污染”的 canvas</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何判断-canvas-被污染？"><span class="nav-number">3.3.</span> <span class="nav-text">如何判断 canvas 被污染？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何解决-canvas-被污染产生的跨域问题？"><span class="nav-number">3.4.</span> <span class="nav-text">如何解决 canvas 被污染产生的跨域问题？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">4.</span> <span class="nav-text">结语</span></a></li></ol></div>
             
 
           </div>

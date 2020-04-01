@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="Alice&#39;s blog">
 <meta property="og:description" content="对于单页应用来说，如果没有路由系统，就会出现进行多次跳转后由于 url 未发生变化，页面刷新后又回到最初始的状态，用户体验很不友好；并且由于缺少路由，对网站的 SEO 也很不友好。  SPA 路由原理Hash 路由原理及简单实现url 上的 hash 以 # 开头，主要作为锚点来使用，方便页面定位到相应位置。每次 # 后内容改变不会引起页面刷新，而且每次变化都会触发 hashChange 函数，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-04T09:07:20.751Z">
+<meta property="og:updated_time" content="2020-03-26T10:16:39.531Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SPA 路由原理及 react-router 浅析">
 <meta name="twitter:description" content="对于单页应用来说，如果没有路由系统，就会出现进行多次跳转后由于 url 未发生变化，页面刷新后又回到最初始的状态，用户体验很不友好；并且由于缺少路由，对网站的 SEO 也很不友好。  SPA 路由原理Hash 路由原理及简单实现url 上的 hash 以 # 开头，主要作为锚点来使用，方便页面定位到相应位置。每次 # 后内容改变不会引起页面刷新，而且每次变化都会触发 hashChange 函数，">
@@ -371,7 +371,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-03-04 17:07:20" itemprop="dateModified" datetime="2020-03-04T17:07:20+08:00">2020-03-04</time>
+                <time title="修改时间：2020-03-26 18:16:39" itemprop="dateModified" datetime="2020-03-26T18:16:39+08:00">2020-03-26</time>
               </span>
             
           
@@ -413,7 +413,7 @@
         <blockquote>
 <p>对于单页应用来说，如果没有路由系统，就会出现进行多次跳转后由于 url 未发生变化，页面刷新后又回到最初始的状态，用户体验很不友好；并且由于缺少路由，对网站的 SEO 也很不友好。</p>
 </blockquote>
-<h1 id="SPA-路由原理"><a href="#SPA-路由原理" class="headerlink" title="SPA 路由原理"></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86" title="SPA 路由原理" target="_blank" rel="noopener"></a>SPA 路由原理</h1><h2 id="Hash-路由原理及简单实现"><a href="#Hash-路由原理及简单实现" class="headerlink" title="Hash 路由原理及简单实现"></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#Hash-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0" title="Hash 路由原理及简单实现" target="_blank" rel="noopener"></a>Hash 路由原理及简单实现</h2><p>url 上的 hash 以 # 开头，主要作为锚点来使用，方便页面定位到相应位置。每次 # 后内容改变不会引起页面刷新，而且每次变化都会触发 hashChange 函数，可以利用这个特性来实现一个简单的 SPA hash 路由。</p>
+<h1 id="SPA-路由原理"><a href="#SPA-路由原理" class="headerlink" title="SPA 路由原理"></a>SPA 路由原理</h1><h2 id="Hash-路由原理及简单实现"><a href="#Hash-路由原理及简单实现" class="headerlink" title="Hash 路由原理及简单实现"></a>Hash 路由原理及简单实现</h2><p>url 上的 hash 以 # 开头，主要作为锚点来使用，方便页面定位到相应位置。每次 # 后内容改变不会引起页面刷新，而且每次变化都会触发 hashChange 函数，可以利用这个特性来实现一个简单的 SPA hash 路由。</p>
 <pre><code>class Router {
   constructor() {
     this.routes = {} // 保存每个路由对应的回调函数
@@ -433,7 +433,7 @@
 }</code></pre><p><a href="https://codepen.io/pororo/pen/YOXwWZ?editors=1000" target="_blank" rel="noopener">Hash 简单实现 demo</a></p>
 <a id="more"></a>
 
-<h2 id="history-路由原理及简单实现"><a href="#history-路由原理及简单实现" class="headerlink" title="history 路由原理及简单实现"></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#history-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0" title="history 路由原理及简单实现" target="_blank" rel="noopener"></a>history 路由原理及简单实现</h2><p>History 路由是基于 HTML5 规范，在 HTML5 规范中提供了 <code>history.pushState</code> 和 <code>history.replaceState</code> 来进行路由控制。</p>
+<h2 id="history-路由原理及简单实现"><a href="#history-路由原理及简单实现" class="headerlink" title="history 路由原理及简单实现"></a>history 路由原理及简单实现</h2><p>History 路由是基于 HTML5 规范，在 HTML5 规范中提供了 <code>history.pushState</code> 和 <code>history.replaceState</code> 来进行路由控制。</p>
 <p>执行 <code>history.pushState({}, null, &#39;/about&#39;)</code> <code>history.replaceState({}, null, &#39;/about&#39;)</code>时，虽然页面 url 改变，但是不会刷新页面。</p>
 <p>参数说明：</p>
 <p>state：存储 JSON 字符串，可以用在 popstate 事件中</p>
@@ -478,30 +478,30 @@
     window.addEventListener(&apos;load&apos;, () =&gt; this.updateView(), false)
   }
 }</code></pre><p><a href="https://codepen.io/pororo/pen/LJVNPO" target="_blank" rel="noopener">History 简单实现 demo</a></p>
-<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#%E4%BC%98%E7%BC%BA%E7%82%B9" title="优缺点" target="_blank" rel="noopener"></a>优缺点</h2><h3 id="hash-路由"><a href="#hash-路由" class="headerlink" title="hash 路由"></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#hash-%E8%B7%AF%E7%94%B1" title="hash 路由" target="_blank" rel="noopener"></a>hash 路由</h3><h4 id="优点："><a href="#优点：" class="headerlink" title="优点："></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#%E4%BC%98%E7%82%B9%EF%BC%9A" title="优点：" target="_blank" rel="noopener"></a>优点：</h4><ul>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><h3 id="hash-路由"><a href="#hash-路由" class="headerlink" title="hash 路由"></a>hash 路由</h3><h4 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h4><ul>
 <li>兼容性好，可以兼容到 IE8；</li>
 <li>不需要后端支持。</li>
 </ul>
-<h4 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#%E7%BC%BA%E7%82%B9%EF%BC%9A" title="缺点：" target="_blank" rel="noopener"></a>缺点：</h4><ul>
+<h4 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h4><ul>
 <li>对于需要重定向的操作，服务器端无法获取 hash 部分，无法取得 url 中的数据，url 部分数据会丢失；</li>
 <li>服务器端无法准确跟踪前端路由信息；</li>
 <li>锚点定位的需求会导致与 hash 路由机制冲突。</li>
 </ul>
-<h3 id="history-路由"><a href="#history-路由" class="headerlink" title="history 路由"></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#history-%E8%B7%AF%E7%94%B1" title="history 路由" target="_blank" rel="noopener"></a>history 路由</h3><h4 id="优点：-1"><a href="#优点：-1" class="headerlink" title="优点："></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#%E4%BC%98%E7%82%B9%EF%BC%9A-1" title="优点：" target="_blank" rel="noopener"></a>优点：</h4><ul>
+<h3 id="history-路由"><a href="#history-路由" class="headerlink" title="history 路由"></a>history 路由</h3><h4 id="优点：-1"><a href="#优点：-1" class="headerlink" title="优点："></a>优点：</h4><ul>
 <li>重定向过程中不会丢失 url 中的参数，服务器端可以拿数据；</li>
 <li>服务器端可以准确跟踪路由信息；</li>
 <li>可以通过 history.state 获取当前 url 对应的状态信息。</li>
 </ul>
-<h4 id="缺点：-1"><a href="#缺点：-1" class="headerlink" title="缺点："></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#%E7%BC%BA%E7%82%B9%EF%BC%9A-1" title="缺点：" target="_blank" rel="noopener"></a>缺点：</h4><ul>
+<h4 id="缺点：-1"><a href="#缺点：-1" class="headerlink" title="缺点："></a>缺点：</h4><ul>
 <li>从 IE10 往后兼容，不如 hash 路由兼容性好；</li>
 <li>需要服务器端支持，每次返回 html 文档。</li>
 </ul>
-<h1 id="react-router-V4-原理"><a href="#react-router-V4-原理" class="headerlink" title="react-router V4 原理"></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#react-router-V4-%E5%8E%9F%E7%90%86" title="react-router V4 原理" target="_blank" rel="noopener"></a>react-router V4 原理</h1><p>react 本身作为一个 view 层框架，本身不会对路由进行控制，所以需要通过第三方来进行路由管理。</p>
+<h1 id="react-router-V4-原理"><a href="#react-router-V4-原理" class="headerlink" title="react-router V4 原理"></a>react-router V4 原理</h1><p>react 本身作为一个 view 层框架，本身不会对路由进行控制，所以需要通过第三方来进行路由管理。</p>
 <p>在上面我们实现的简单的路由实现都是直接操作 DOM，但是在 react 中我们不能直接操作 DOM，而是管理抽象的 VDOM，也就是管理组件的生命周期，不同路由显示不同组件。</p>
 <p>这里我们以 react-router V4 为例（其实主要功能还是依赖于 history，这里不做详细的介绍），在 V4 中路由都是以组件的形式组织（Just Component API）。</p>
-<p>react-router V4 分成了三个包：react-router-dom(for web)、react-router-native(for native)、react-router(core)</p>
+<p>react-router V4 分成了四个包：react-router-dom(for web)、react-router-native(for native)、react-router(core)、react-router-config（静态路由配置工具函数）</p>
 <p>ps: 其实还有一个 react-router-redux 但已停止维护，用 connected-react-router 来替代，是一个单独的库，并不包含在 react-router V4 中。</p>
-<h2 id="Router"><a href="#Router" class="headerlink" title="Router"></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#Router" title="Router" target="_blank" rel="noopener"></a>Router</h2><p>Router 源码</p>
+<h2 id="Router"><a href="#Router" class="headerlink" title="Router"></a>Router</h2><p>Router 源码</p>
 <pre><code>import warning from &apos;warning&apos;
 import invariant from &apos;invariant&apos;
 import React from &apos;react&apos;
@@ -552,7 +552,7 @@ class Router extends React.Component {
     return children ? React.Children.only(children) : null // Router 下只能有一个子元素
   }
 }
-export default Router</code></pre><h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#%E7%B1%BB%E5%9E%8B" title="类型" target="_blank" rel="noopener"></a>类型</h3><p>Router 组件有两种类型：</p>
+export default Router</code></pre><h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><p>Router 组件有两种类型：</p>
 <ul>
 <li>BrowserRouter：通过 pushState 和 replaceState 构建路由</li>
 <li>HashRouter：通过 location.hash 和 hashchange 构建路由</li>
@@ -610,8 +610,8 @@ const history = {
 
 //hash history 创建的 location 对象:
 { pathname: &apos;hash&apos;, search: &apos;&apos;, hash: &apos;&apos; }</code></pre><p>browser history 使用完整 url，而 hash history 只使用第一个 hash 后的 url。</p>
-<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#%E7%89%B9%E6%80%A7" title="特性" target="_blank" rel="noopener"></a>特性</h3><p>Router 有两个 props : history 和 children。<br>Router 下只能有一个子元素(通过 React.Children.only 进行限制)<br>props 中 history 初始化后，不能再次更改</p>
-<h3 id="通信方式"><a href="#通信方式" class="headerlink" title="通信方式"></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F" title="通信方式" target="_blank" rel="noopener"></a>通信方式</h3><p>Router 组件与子组件通信通过旧的 context API 来进行通信。<br>需要在父组件（Router）设置: getChildContext，childContextTypes，子组件需要设置: contextTypes，利用 context API 来实现 Router 下 history 实例的共享。</p>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><p>Router 有两个 props : history 和 children。<br>Router 下只能有一个子元素(通过 React.Children.only 进行限制)<br>props 中 history 初始化后，不能再次更改</p>
+<h3 id="通信方式"><a href="#通信方式" class="headerlink" title="通信方式"></a>通信方式</h3><p>Router 组件与子组件通信通过旧的 context API 来进行通信。<br>需要在父组件（Router）设置: getChildContext，childContextTypes，子组件需要设置: contextTypes，利用 context API 来实现 Router 下 history 实例的共享。</p>
 <p>对子组件暴露一个 router 对象</p>
 <pre><code>router: {
   ...this.context.router,
@@ -621,7 +621,7 @@ const history = {
     match: this.state.match
   }
 }</code></pre><p>Router 只通过 history 实例中的 listen 函数来监听路由变化，每次变化后在 Router 中都执行 setState 更新 state.match。由于 context 中的 match 指向的是 state.match，从而造成 context 发生变化，触发子组件（Route）的 <code>componentWillReceiveProps</code> 函数，触发重新渲染（下面会讲到）。之所以把这个 <code>history.listen</code> 函数写在 <code>componentWillMount</code> 里，是为了 SSR 的时候，也能够使用 Redirect。</p>
-<h2 id="Route"><a href="#Route" class="headerlink" title="Route"></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#Route" title="Route" target="_blank" rel="noopener"></a>Route</h2><p>Route 源码</p>
+<h2 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h2><p>Route 源码</p>
 <pre><code>import warning from &quot;warning&quot;;
 import invariant from &quot;invariant&quot;;
 import React from &quot;react&quot;;
@@ -762,7 +762,7 @@ export default Route;</code></pre><p>上面说到在 Router 中「由于 context
 <li>children (props)： 其实和 render 差不多，区别是不判断 match，总是会被渲染。</li>
 <li>children(子元素)： 如果以上都没有，那么会默认渲染子元素，但是只能有一个子元素。</li>
 </ul>
-<h2 id="matchPath-函数"><a href="#matchPath-函数" class="headerlink" title="matchPath 函数"></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#matchPath-%E5%87%BD%E6%95%B0" title="matchPath 函数" target="_blank" rel="noopener"></a>matchPath 函数</h2><p>Route 中是否匹配就是使用 computeMatch 函数。</p>
+<h2 id="matchPath-函数"><a href="#matchPath-函数" class="headerlink" title="matchPath 函数"></a>matchPath 函数</h2><p>Route 中是否匹配就是使用 computeMatch 函数。</p>
 <p>matchPath 源码</p>
 <pre><code>import pathToRegexp from &quot;path-to-regexp&quot;;
 
@@ -849,7 +849,7 @@ re.exec(&apos;/test/route&apos;)
 const cacheLimit = 10000;
 let cacheCount = 0;</code></pre><p>作为 pathToRegexp 的缓存，因为 ES6 的 import 模块导出的是值的引用，所以将 patternCache 可以理解为一个全局变量缓存，缓存以 {option:{pattern: }} 的形式存储，之后如果需要匹配相同 pattern 和 option 的 path，则可以直接从缓存中获得正则表达式和 keys。</p>
 <p>加缓存的原因是路由页面大部分情况下都是相似的，比如要访问 <code>/user/123</code>或 <code>/users/234</code>，都会使用 <code>/user/:id</code> 这个 path 去匹配，没有必要每次都生成一个新的正则表达式。SPA 在页面整个访问的过程中都维护着这份缓存。</p>
-<h2 id="Switch"><a href="#Switch" class="headerlink" title="Switch"></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#Switch" title="Switch" target="_blank" rel="noopener"></a>Switch</h2><p>Switch 是嵌套在 Route 的外面，当 Switch 中的第一个 Route 匹配之后就不会再渲染其他的 Route（Switch 只是一个代理，它的作用还是渲染 Route，Switch 计算得到的 <code>computedMatch</code> 会传递给要渲染的 Route，此时 Route 将直接使用这个 <code>computedMatch</code> 而不需要再自己来计算）。</p>
+<h2 id="Switch"><a href="#Switch" class="headerlink" title="Switch"></a>Switch</h2><p>Switch 是嵌套在 Route 的外面，当 Switch 中的第一个 Route 匹配之后就不会再渲染其他的 Route（Switch 只是一个代理，它的作用还是渲染 Route，Switch 计算得到的 <code>computedMatch</code> 会传递给要渲染的 Route，此时 Route 将直接使用这个 <code>computedMatch</code> 而不需要再自己来计算）。</p>
 <p>Switch 源码</p>
 <pre><code>import React from &quot;react&quot;;
 import PropTypes from &quot;prop-types&quot;;
@@ -924,7 +924,7 @@ class Switch extends React.Component {
 }
 
 export default Switch;</code></pre><p>Switch 也是通过 matchPath 这个函数来判断是否匹配成功，一直按照 Switch 中 children 的顺序依次遍历子元素，如果匹配失败则 match 为 null，如果匹配成功则标记这个子元素和它对应的 <code>location</code>、<code>computedMatch</code>。在最后的时候使用 <code>React.cloneElement</code> 渲染，如果没有匹配到的子元素则返回 null。</p>
-<h2 id="Link"><a href="#Link" class="headerlink" title="Link"></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#Link" title="Link" target="_blank" rel="noopener"></a>Link</h2><p>Link 源码</p>
+<h2 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h2><p>Link 源码</p>
 <pre><code>import React from &quot;react&quot;;
 import PropTypes from &quot;prop-types&quot;;
 import invariant from &quot;invariant&quot;;
@@ -1007,7 +1007,7 @@ class Link extends React.Component {
 export default Link;</code></pre><p>Link 最终创建一个 a 标签来包裹住要跳转的元素，为了使 a 标签不发生页面的跳转，在这个 a 标签的 <code>handleClick</code> 中 <code>preventDefault</code> 禁止默认的跳转。所以这里的 href 并没有作用，但有更好的 html 语义。</p>
 <p>在 <code>handleClick</code> 中，只对单纯的左击进行 <code>preventDefault</code> 和 <code>history.push</code>。是因为：「路由的变化」与「页面的跳转」是不互相关联的，应区别开来。</p>
 <p>在 Link 中调用了 history 中的 push 方法引起路由改变，Router 中的 listen 监听到路由的变化，然后通过 context 更新 props 和 nextContext 让下层的 Route 去重新匹配，完成需要渲染部分的更新。</p>
-<h2 id="Redirect"><a href="#Redirect" class="headerlink" title="Redirect"></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#Redirect" title="Redirect" target="_blank" rel="noopener"></a>Redirect</h2><p>Redirect 源码</p>
+<h2 id="Redirect"><a href="#Redirect" class="headerlink" title="Redirect"></a>Redirect</h2><p>Redirect 源码</p>
 <pre><code>import React from &quot;react&quot;;
 import PropTypes from &quot;prop-types&quot;;
 import warning from &quot;warning&quot;;
@@ -1108,7 +1108,7 @@ class Redirect extends React.Component {
 
 export default Redirect;</code></pre><p>Redirect 支持在客户端和服务器端调用。客户端 mount 阶段会在 <code>componentDidMount</code> 进行重定向，update 阶段会在 <code>componentDidUpdate</code> 中进行重定向；在服务器端由于不会执行 <code>componentDidMount</code>（服务器端只会执行到 <code>componentWillMount</code> ） ，所以用 <code>componentWillMount</code> 来代替进行重定向。通过 <code>this.isStatic()</code> 来判断重定向是发生在客户端还是服务器端。</p>
 <p>这个组件 render 方法 return null，是因为 react-router 4 遵循 Just Components API 的原则，将 Redirect 写成组件而不是函数。</p>
-<h2 id="withRouter"><a href="#withRouter" class="headerlink" title="withRouter"></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#withRouter" title="withRouter" target="_blank" rel="noopener"></a>withRouter</h2><p>withRouter 源码</p>
+<h2 id="withRouter"><a href="#withRouter" class="headerlink" title="withRouter"></a>withRouter</h2><p>withRouter 源码</p>
 <pre><code>import React from &quot;react&quot;;
 import PropTypes from &quot;prop-types&quot;;
 import hoistStatics from &quot;hoist-non-react-statics&quot;;
@@ -1140,7 +1140,7 @@ const withRouter = Component =&gt; {
 export default withRouter;</code></pre><p>withRouter 的作用是：在普通的非直接嵌套在 Route 中的组件也能获得路由的信息。它是一个用 Route 包裹了原本 Component 的 HOC。</p>
 <p>创建 Route 有三种方法，这里直接采用了传递 children props（children 为 function）的方法，因为该 HOC 要原封不动的渲染 wrappedComponent，即：不判断 match，总需要被渲染。</p>
 <p>最后返回 HOC 时，使用了 hoistStatics 方法，作用是保留原本 Component 类的静态方法。由于该 HOC 是在原本 Component 的外层包了一层 Route，需要要将原本 Component 类的静态方法转移给新的 Route。</p>
-<h2 id="StaticRouter"><a href="#StaticRouter" class="headerlink" title="StaticRouter"></a><a href="https://pororoj.github.io/2018/11/02/SPA-%E8%B7%AF%E7%94%B1%E5%8E%9F%E7%90%86%E5%8F%8A-react-router-%E6%B5%85%E6%9E%90/#StaticRouter" title="StaticRouter" target="_blank" rel="noopener"></a>StaticRouter</h2><p>StaticRouter 源码</p>
+<h2 id="StaticRouter"><a href="#StaticRouter" class="headerlink" title="StaticRouter"></a>StaticRouter</h2><p>StaticRouter 源码</p>
 <pre><code>import warning from &quot;warning&quot;;
 import invariant from &quot;invariant&quot;;
 import React from &quot;react&quot;;
@@ -1300,8 +1300,8 @@ export default StaticRouter;</code></pre><p>StaticRouter 主要用在测试环�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/05/CSS中的层叠规则/" rel="next" title="CSS 中的层叠规则">
-                <i class="fa fa-chevron-left"></i> CSS 中的层叠规则
+              <a href="/2018/04/05/Promise之串行执行的实现/" rel="next" title="Promise 之串行执行的实现">
+                <i class="fa fa-chevron-left"></i> Promise 之串行执行的实现
               </a>
             
           </div>
@@ -1382,7 +1382,7 @@ export default StaticRouter;</code></pre><p>StaticRouter 主要用在测试环�
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1390,6 +1390,23 @@ export default StaticRouter;</code></pre><p>StaticRouter 主要用在测试环�
 
     
 
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+        <span class="site-state-item-count">0</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
     
   </nav>
 

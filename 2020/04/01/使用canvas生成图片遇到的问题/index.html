@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="Alice&#39;s blog">
 <meta property="og:description" content="前言经常会遇到一些需求，要求用户长按页面中的海报，可以保存海报图片到本地。以提高营销活动的转化率。 思路在浏览器中可以将 dom 通过 canvas 的 drawImage() 方法画在 canvas 上，最后再通过 canvas 的 toBlob()、toDataURL() 、getImageData() 将图片数据从 canvas 中导出。 问题在实现的过程中可能会遇到 canvas 被污染（">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-04-01T08:51:38.893Z">
+<meta property="og:updated_time" content="2020-04-01T08:55:07.303Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用canvas生成图片遇到的问题">
 <meta name="twitter:description" content="前言经常会遇到一些需求，要求用户长按页面中的海报，可以保存海报图片到本地。以提高营销活动的转化率。 思路在浏览器中可以将 dom 通过 canvas 的 drawImage() 方法画在 canvas 上，最后再通过 canvas 的 toBlob()、toDataURL() 、getImageData() 将图片数据从 canvas 中导出。 问题在实现的过程中可能会遇到 canvas 被污染（">
@@ -356,7 +356,7 @@
                 
               
 
-              <time title="创建时间：2020-04-01 14:14:39 / 修改时间：16:51:38" itemprop="dateCreated datePublished" datetime="2020-04-01T14:14:39+08:00">2020-04-01</time>
+              <time title="创建时间：2020-04-01 14:14:39 / 修改时间：16:55:07" itemprop="dateCreated datePublished" datetime="2020-04-01T14:14:39+08:00">2020-04-01</time>
             </span>
           
 
@@ -409,12 +409,12 @@
 <blockquote>
 <h2 id="安全性和“被污染”的-canvas"><a href="#安全性和“被污染”的-canvas" class="headerlink" title="安全性和“被污染”的 canvas"></a>安全性和“被污染”的 canvas</h2><p>由于在 <code>&lt;canvas&gt;</code> 位图中的像素可能来自多种来源，包括从其他主机检索的图像或视频，因此不可避免的会出现安全问题。</p>
 <p>尽管不通过 CORS 就可以在 <code>&lt;canvas&gt;</code> 中使用其他来源的图片，但是这会<strong>污染</strong>画布，并且不再认为是安全的画布，这将可能在 <code>&lt;canvas&gt;</code> 检索数据过程中引发异常。</p>
-<p>如果从外部引入的 HTML <code>&lt;img&gt;</code>或 <code>SVG</code>  ，并且图像源不符合规则，将会被阻止从 <code>&lt;canvas&gt;</code> 中读取数据。</p>
+<p>如果从外部引入的 HTML <code>&lt;img&gt;</code>或 <code>SVG</code> ，并且图像源不符合规则，将会被阻止从 <code>&lt;canvas&gt;</code> 中读取数据。</p>
 <p>在”被污染”的画布中调用以下方法将会抛出安全错误：</p>
 <ul>
 <li>在 <code>&lt;canvas&gt;</code> 的上下文上调用<code>getImageData()</code></li>
 <li>在<code>&lt;canvas&gt;</code> 上调用 <code>toBlob()</code></li>
-<li>在 <code>&lt;canvas&gt;</code> 上调用  <code>toDataURL()</code></li>
+<li>在 <code>&lt;canvas&gt;</code> 上调用 <code>toDataURL()</code></li>
 </ul>
 <p>这种机制可以避免未经许可拉取远程网站信息而导致的用户隐私泄露。</p>
 </blockquote>
@@ -425,19 +425,19 @@
 </ol>
 <h2 id="如何解决-canvas-被污染产生的跨域问题？"><a href="#如何解决-canvas-被污染产生的跨域问题？" class="headerlink" title="如何解决 canvas 被污染产生的跨域问题？"></a>如何解决 canvas 被污染产生的跨域问题？</h2><ol>
 <li><p>img 的 crossOrigin 属性设置为 anonymous</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> img = <span class="keyword">new</span> Image();</span><br><span class="line">img.crossOrigin = <span class="string">'anonymous'</span>; <span class="comment">// crossOrigin 一定要写在最前面</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> img = <span class="keyword">new</span> Image();</span><br><span class="line">img.crossOrigin = <span class="string">"anonymous"</span>; <span class="comment">// crossOrigin 一定要写在最前面</span></span><br></pre></td></tr></table></figure>
 
 <p>或者</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img crossorigin=<span class="string">"anonymous"</span> src=<span class="string">"..."</span>&gt; crossOrigin 一定要写在最前面</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img crossorigin=<span class="string">"anonymous"</span> src=<span class="string">"..."</span>&gt; <span class="comment">// crossOrigin 一定要写在最前面</span></span><br></pre></td></tr></table></figure>
 
 <p>同时，服务器响应也需要设置正确的 Access-Control-Allow-Origin<br>PS：在 Safari 中如果图片使用的是本地图片（图片地址不是以 http(s)开头）即使设置了<code>crossorigin=&quot;anonymous&quot;</code> 也会报错，此时需要判断图片的地址是否以 http 开头。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (path.substring(<span class="number">0</span>, <span class="number">4</span>).toLowerCase() === <span class="string">'http'</span>) &#123;</span><br><span class="line">  img.crossOrigin = <span class="string">'anonymous'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (path.substring(<span class="number">0</span>, <span class="number">4</span>).toLowerCase() === <span class="string">"http"</span>) &#123;</span><br><span class="line">  img.crossOrigin = <span class="string">"anonymous"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>将图片转换成无交互的 base64 格式</p>
 </li>
 </ol>
 <h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>最后选择使用</p>
-<p>[html2canvas] (<a href="https://github.com/niklasvh/html2canvas" target="_blank" rel="noopener">https://github.com/niklasvh/html2canvas</a> “html2canvas”) 来生成图片，html2canvas 内部已经处理好了 canvas 被污染的问题，看它的源码也会有很大的收获。</p>
+<p><a href="https://github.com/niklasvh/html2canvas" title="html2canvas" target="_blank" rel="noopener">html2canvas</a> 来生成图片，html2canvas 内部已经处理好了 canvas 被污染的问题，看它的源码也会有很大的收获。</p>
 
       
     </div>

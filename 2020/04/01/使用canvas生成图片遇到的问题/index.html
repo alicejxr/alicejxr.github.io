@@ -100,7 +100,7 @@
 <meta property="og:site_name" content="Alice&#39;s blog">
 <meta property="og:description" content="前言经常会遇到一些需求，要求用户长按页面中的海报，可以保存海报图片到本地。以提高营销活动的转化率。 思路在浏览器中可以将 dom 通过 canvas 的 drawImage() 方法画在 canvas 上，最后再通过 canvas 的 toBlob()、toDataURL() 、getImageData() 将图片数据从 canvas 中导出。 问题在实现的过程中可能会遇到 canvas 被污染（">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-04-01T08:55:07.303Z">
+<meta property="og:updated_time" content="2020-04-29T02:36:17.760Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用canvas生成图片遇到的问题">
 <meta name="twitter:description" content="前言经常会遇到一些需求，要求用户长按页面中的海报，可以保存海报图片到本地。以提高营销活动的转化率。 思路在浏览器中可以将 dom 通过 canvas 的 drawImage() 方法画在 canvas 上，最后再通过 canvas 的 toBlob()、toDataURL() 、getImageData() 将图片数据从 canvas 中导出。 问题在实现的过程中可能会遇到 canvas 被污染（">
@@ -356,13 +356,23 @@
                 
               
 
-              <time title="创建时间：2020-04-01 14:14:39 / 修改时间：16:55:07" itemprop="dateCreated datePublished" datetime="2020-04-01T14:14:39+08:00">2020-04-01</time>
+              <time title="创建时间：2020-04-01 14:14:39" itemprop="dateCreated datePublished" datetime="2020-04-01T14:14:39+08:00">2020-04-01</time>
             </span>
           
 
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-04-29 10:36:17" itemprop="dateModified" datetime="2020-04-29T10:36:17+08:00">2020-04-29</time>
+              </span>
             
           
 
@@ -438,6 +448,7 @@
 </ol>
 <h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>最后选择使用</p>
 <p><a href="https://github.com/niklasvh/html2canvas" title="html2canvas" target="_blank" rel="noopener">html2canvas</a> 来生成图片，html2canvas 内部已经处理好了 canvas 被污染的问题，看它的源码也会有很大的收获。</p>
+<h1 id="2020-4-29-更新"><a href="#2020-4-29-更新" class="headerlink" title="2020.4.29 更新"></a>2020.4.29 更新</h1><p><a href="https://github.com/niklasvh/html2canvas" title="html2canvas" target="_blank" rel="noopener">html2canvas</a> 在生产环境的使用中出现了较多的问题，<a href="https://github.com/niklasvh/html2canvas/releases/tag/v1.0.0-rc.0" target="_blank" rel="noopener">v1.0.0-rc.0</a> 这个 release 之后的版本在 iOS 10.3 及以前系统会出现 base64 格式的图片生成图片时，出现 <code>Error loading image</code> 报错，是由于更改了关于 Safari base64 图片处理逻辑导致的 链接：<a href="https://github.com/niklasvh/html2canvas/commit/4e4a231683904dfdc1f82472ece5a160a158dbb8，在github上反馈并没有得到回应。因而我们使用" target="_blank" rel="noopener">https://github.com/niklasvh/html2canvas/commit/4e4a231683904dfdc1f82472ece5a160a158dbb8，在github上反馈并没有得到回应。因而我们使用</a> <a href="https://github.com/niklasvh/html2canvas/releases/tag/v1.0.0-rc.0" target="_blank" rel="noopener">v1.0.0-rc.0</a> 及之前的 release 来解决这个问题，但是同时又发现之前的版本并不支持 <code>overflow: hidden</code> 这个属性。最后决定使用 <a href="https://github.com/tsayen/dom-to-image" target="_blank" rel="noopener">dom-to-image</a> 来代替html2cnvas。</p>
 
       
     </div>
@@ -589,7 +600,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">3.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-canvas-被污染（tainted-canvases）呢？"><span class="nav-number">3.1.</span> <span class="nav-text">什么是 canvas 被污染（tainted canvases）呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全性和“被污染”的-canvas"><span class="nav-number">3.2.</span> <span class="nav-text">安全性和“被污染”的 canvas</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何判断-canvas-被污染？"><span class="nav-number">3.3.</span> <span class="nav-text">如何判断 canvas 被污染？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何解决-canvas-被污染产生的跨域问题？"><span class="nav-number">3.4.</span> <span class="nav-text">如何解决 canvas 被污染产生的跨域问题？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">4.</span> <span class="nav-text">结语</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">3.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-canvas-被污染（tainted-canvases）呢？"><span class="nav-number">3.1.</span> <span class="nav-text">什么是 canvas 被污染（tainted canvases）呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全性和“被污染”的-canvas"><span class="nav-number">3.2.</span> <span class="nav-text">安全性和“被污染”的 canvas</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何判断-canvas-被污染？"><span class="nav-number">3.3.</span> <span class="nav-text">如何判断 canvas 被污染？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何解决-canvas-被污染产生的跨域问题？"><span class="nav-number">3.4.</span> <span class="nav-text">如何解决 canvas 被污染产生的跨域问题？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">4.</span> <span class="nav-text">结语</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2020-4-29-更新"><span class="nav-number">5.</span> <span class="nav-text">2020.4.29 更新</span></a></li></ol></div>
             
 
           </div>

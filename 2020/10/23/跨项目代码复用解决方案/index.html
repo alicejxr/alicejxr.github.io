@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="背景如果我们有个项目 A 和项目 B，它们中有通用的组件，如果每个项目都维护一套组件，每次有更改时，都要去维护两个项目，长此以往，如果多出 C、D 项目也有一个一样组件，对于维护和开发者来说都是无以为继的。 解决方案所以我们需要把公共的组件抽离出来，所有使用的项目都使用这一个组件。针对这种情况有以下几个方案：  Git Submodule：从 Git 1.5.2 开始，Git 新增并推荐使用这个功">
+<meta property="og:type" content="article">
+<meta property="og:title" content="跨项目代码复用解决方案">
+<meta property="og:url" content="http://yoursite.com/2020/10/23/跨项目代码复用解决方案/index.html">
+<meta property="og:site_name" content="Alice&#39;s blog">
+<meta property="og:description" content="背景如果我们有个项目 A 和项目 B，它们中有通用的组件，如果每个项目都维护一套组件，每次有更改时，都要去维护两个项目，长此以往，如果多出 C、D 项目也有一个一样组件，对于维护和开发者来说都是无以为继的。 解决方案所以我们需要把公共的组件抽离出来，所有使用的项目都使用这一个组件。针对这种情况有以下几个方案：  Git Submodule：从 Git 1.5.2 开始，Git 新增并推荐使用这个功">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-10-28T07:31:41.870Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="跨项目代码复用解决方案">
+<meta name="twitter:description" content="背景如果我们有个项目 A 和项目 B，它们中有通用的组件，如果每个项目都维护一套组件，每次有更改时，都要去维护两个项目，长此以往，如果多出 C、D 项目也有一个一样组件，对于维护和开发者来说都是无以为继的。 解决方案所以我们需要把公共的组件抽离出来，所有使用的项目都使用这一个组件。针对这种情况有以下几个方案：  Git Submodule：从 Git 1.5.2 开始，Git 新增并推荐使用这个功">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2020/10/23/跨项目代码复用解决方案/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  
+  <title>跨项目代码复用解决方案 | Alice's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Alice's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/23/跨项目代码复用解决方案/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Alice Jia">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alice's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">跨项目代码复用解决方案
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-10-23 16:48:17" itemprop="dateCreated datePublished" datetime="2020-10-23T16:48:17+08:00">2020-10-23</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-10-28 15:31:41" itemprop="dateModified" datetime="2020-10-28T15:31:41+08:00">2020-10-28</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>如果我们有个项目 A 和项目 B，它们中有通用的组件，如果每个项目都维护一套组件，每次有更改时，都要去维护两个项目，长此以往，如果多出 C、D 项目也有一个一样组件，对于维护和开发者来说都是无以为继的。</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>所以我们需要把公共的组件抽离出来，所有使用的项目都使用这一个组件。针对这种情况有以下几个方案：</p>
+<ol>
+<li>Git Submodule：从 <a href="http://lwn.net/Articles/235109/" target="_blank" rel="noopener">Git 1.5.2</a> 开始，Git 新增并推荐使用这个功能来管理子项目。允许类库项目做为<code>repository</code>,子项目做为一个单独的<code>git项目</code>存在父项目中，子项目可以有自己的独立的<code>commit</code>，<code>push</code>，<code>pull</code>。而父项目以<code>Submodule</code>的形式包含子项目，父项目可以指定子项目<code>header</code>，父项目中会的提交信息包含<code>Submodule</code>的信息，再 <code>clone</code> 父项目的时候可以把<code>Submodule</code>初始化。<a href="https://segmentfault.com/a/1190000003076028" target="_blank" rel="noopener">https://segmentfault.com/a/1190000003076028</a></li>
+<li>Git Subtree：subtree 会将子仓库 copy 到父仓库中，并产生至少一次 merge 记录。Git官方以前的推荐方案</li>
+<li>npm：node package manager</li>
+</ol>
+<p>npm 是我们很容易想到的解决方案，但是 npm 更适用于子项目代码比较稳定的情况，但是对于刚抽离出来的子项目，频繁的修改和发布，代码同步是十分繁琐的。</p>
+<p>由于 Git Submodule 和 Git Subtree 都是 Git 自带的子项目管理方案，所以下面会对两者进行对比，选择合适的方案。</p>
+<a id="more"></a>
+
+<h1 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h1><table>
+<thead>
+<tr>
+<th></th>
+<th>占用空间</th>
+<th>clone</th>
+<th>update</th>
+<th>commit</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Subtree</td>
+<td>subtree 在初始化 add 时，会将子仓库 copy 到父仓库中，并产生至少一次 merge 记录。所以会占用大量父仓库空间</td>
+<td>subtree add 至父仓库之后，后续的 clone 操作与单一仓库操作相同</td>
+<td>子仓库更新后，父仓库需要 subtree pull 操作，且命令行略长，需要指定 –prefix 参数。由于无法感知子仓库的存在，可能会产生 merge 冲突需要处理</td>
+<td>父仓库直接提交父子仓库目录里的变动。若修改了子仓库的文件，则需要执行 subtree push</td>
+</tr>
+<tr>
+<td>Submodule</td>
+<td>submodule 在初始化 add 时，会在父仓库新建一个 .gitmodules 文件，用于保存子仓库的 commit hash 引用。所以不会占用父仓库空间</td>
+<td>后续 clone 时 submodule 还需要 init/update 操作，且 submodule 子仓库有自己的分支</td>
+<td>子仓库更新后，父仓库需要 submodule update 操作。父仓库只需变动子仓库 hash 引用，不会出现冲突</td>
+<td>父子仓库的变动需要单独分别提交。且注意先提交子仓库再提交父仓库</td>
+</tr>
+<tr>
+<td>更优</td>
+<td>Submodule</td>
+<td>Subtree</td>
+<td>Submodule</td>
+<td>Subtree</td>
+</tr>
+</tbody></table>
+<p>Submodule 使用中存在的令人头疼的问题：</p>
+<ol>
+<li><p>如果你 git pull 之后，忘记了调用 git submodule update，那么你极有可能再次把旧的 submodule 依赖信息提交上去。对于那些习惯使用 git commit -a 的人来说，这种危险会更大一些。所以建议大家:</p>
+<ol>
+<li>git pull 之后，立即执行 git status, 如果发现 submodule 有修改，立即执行 git submodule update</li>
+<li>尽量不要使用 git commit -a， git add 命令存在的意义就是让你对加入暂存区的文件做二次确认，而 git commit -a 相当于跳过了这个确认过程。</li>
+</ol>
+<p>更复杂一些，如果你的 submodule 又依赖了 submodule，那么很可能你需要在 git pull 和 git submodule update 之后，再分别到每个 submodule 中再执行一次 git submodule update，这里可以使用 git submodule foreach 命令来实现： <code>git submodule foreach git submodule update</code></p>
+</li>
+<li><p>默认 git submodule update 并不会将 submodule 切到任何 branch，所以，默认下 submodule 的 HEAD 是处于游离状态的 (‘detached HEAD’ state)。所以在修改前，记得一定要用 git checkout master 将当前的 submodule 分支切换到 master，然后才能做修改和提交。</p>
+</li>
+</ol>
+<p>而经由 Git Subtree 来维护的子项目代码，对于父项目来说是透明的，所有的开发人员<strong><em>看到的就是一个普通的目录，原来怎么做现在依旧那么做</em></strong>，只需要维护这个 Subtree 的人在合适的时候去做同步代码的操作。</p>
+<p>所以，使用 subtree 来维护子项目代码对于团队开发来说是比 submodule更有好的。</p>
+<h1 id="使用-Git-Subtree-维护子项目"><a href="#使用-Git-Subtree-维护子项目" class="headerlink" title="使用 Git Subtree 维护子项目"></a>使用 Git Subtree 维护子项目</h1><p>现在我们有两个项目 A、B，他们公共组件都在 C 项目中，我们接下来介绍如何通过 subtree 在 A、B项目中使用 C。</p>
+<ol>
+<li><p>在父项目中初始化 Subtree</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd A/B的项目路径</span><br><span class="line">git subtree add --prefix=&lt;存放C项目的相对路径&gt; &lt;C项目的git地址&gt; &lt;分支&gt; --squash</span><br></pre></td></tr></table></figure>
+
+<p>通常的做法是不将子项目的整个历史记录存储在主存储库中，但是如果要保留它，则只需省略 –squash</p>
+</li>
+<li><p>在父项目中正常进行代码更改、提交</p>
+</li>
+<li><p>提交子项目的更改到子项目的仓库</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd A/B的项目目录</span><br><span class="line">git subtree push --prefix=&lt;存放C项目的相对路径&gt; &lt;C项目的git地址&gt; &lt;分支&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新父项目中的子项目代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git subtree pull --prefix=&lt;存放C项目的相对路径&gt; &lt;C项目的git地址&gt; &lt;分支&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="使用-npm-scripts-简化代码推送命令"><a href="#使用-npm-scripts-简化代码推送命令" class="headerlink" title="使用 npm scripts 简化代码推送命令"></a>使用 npm scripts 简化代码推送命令</h2><p>通过配置父项目中 <code>package.json</code> 的 scripts，简化每次更新和更新 subtree 的流程</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">"scripts": &#123;</span><br><span class="line">    "subtree:push": "git subtree push --prefix=&lt;存放C项目的相对路径&gt; &lt;C项目的git地址&gt; &lt;分支&gt;",</span><br><span class="line">    "subtree:update": "git subtree pull --prefix=&lt;存放C项目的相对路径&gt; &lt;C项目的git地址&gt; &lt;分支&gt; --squash"</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/17/React-Hooks-实现防抖的三种方式/" rel="next" title="React Hooks 实现防抖的三种方式">
+                <i class="fa fa-chevron-left"></i> React Hooks 实现防抖的三种方式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  
+  <p class="site-author-name" itemprop="name">Alice Jia</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+
+
+  <nav class="site-state motion-element">
+    
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+
+    
+
+    
+  </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方案"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#区别"><span class="nav-number">3.</span> <span class="nav-text">区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-Git-Subtree-维护子项目"><span class="nav-number">4.</span> <span class="nav-text">使用 Git Subtree 维护子项目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-npm-scripts-简化代码推送命令"><span class="nav-number">4.1.</span> <span class="nav-text">使用 npm scripts 简化代码推送命令</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alice Jia</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

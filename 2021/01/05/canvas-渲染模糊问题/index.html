@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="前言在web渲染 spine 动画时，使用canvas来渲染，但是发现在部分安卓手机和iPhone手机上，渲染出的动画有些模糊，在确认动画源文件没有问题后，问题已经确定出现在 canvas 上。在解释问题出现的原因之前，需要先了解两个方面的知识：  设备像素比 canvas.width、canvas.height 与 canvas.style.width、canvas.style.height 的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="canvas 渲染模糊问题">
+<meta property="og:url" content="http://yoursite.com/2021/01/05/canvas-渲染模糊问题/index.html">
+<meta property="og:site_name" content="Alice&#39;s blog">
+<meta property="og:description" content="前言在web渲染 spine 动画时，使用canvas来渲染，但是发现在部分安卓手机和iPhone手机上，渲染出的动画有些模糊，在确认动画源文件没有问题后，问题已经确定出现在 canvas 上。在解释问题出现的原因之前，需要先了解两个方面的知识：  设备像素比 canvas.width、canvas.height 与 canvas.style.width、canvas.style.height 的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-01-05T15:21:54.256Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="canvas 渲染模糊问题">
+<meta name="twitter:description" content="前言在web渲染 spine 动画时，使用canvas来渲染，但是发现在部分安卓手机和iPhone手机上，渲染出的动画有些模糊，在确认动画源文件没有问题后，问题已经确定出现在 canvas 上。在解释问题出现的原因之前，需要先了解两个方面的知识：  设备像素比 canvas.width、canvas.height 与 canvas.style.width、canvas.style.height 的">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2021/01/05/canvas-渲染模糊问题/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  
+  <title>canvas 渲染模糊问题 | Alice's blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Alice's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/05/canvas-渲染模糊问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Alice Jia">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Alice's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">canvas 渲染模糊问题
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-01-05 21:31:14 / 修改时间：23:21:54" itemprop="dateCreated datePublished" datetime="2021-01-05T21:31:14+08:00">2021-01-05</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在web渲染 spine 动画时，使用canvas来渲染，但是发现在部分安卓手机和iPhone手机上，渲染出的动画有些模糊，在确认动画源文件没有问题后，问题已经确定出现在 canvas 上。在解释问题出现的原因之前，需要先了解两个方面的知识：</p>
+<ol>
+<li>设备像素比</li>
+<li>canvas.width、canvas.height 与 canvas.style.width、canvas.style.height 的区别</li>
+</ol>
+<a id="more"></a>
+
+<h1 id="设备像素比"><a href="#设备像素比" class="headerlink" title="设备像素比"></a>设备像素比</h1><p>window.devicePixelRatio（设备像素比）是<strong>设备物理像素</strong>和<strong>设备独立像素</strong>（device-independent pixels，dips）之间的比，即，window.devicePixelRatio = 物理像素/ 设备独立像素。</p>
+<ul>
+<li>物理像素：设备能控制显示的最小单位，可以把这些像素看作成显示器上一个个的点。分辨率指的就是物理像素，比如 iphone 6S Plus 的分辨率是 <code>1920x1080</code>，表示横向有 1920 个物理像素，竖向有 1080 个物理像素</li>
+<li>设备独立像素：独立于设备的用于逻辑上衡量长度的单位，由底层系统的程序使用，会由相关系统转换为物理像素，是一个虚拟像素单位。比如：iPhone 3GS 和 iPhone 4/4s 的尺寸都是 3.5 寸，但 iPhone 3GS 的分辨率是 320x480，iPhone 4/4s 的分辨率是 640x960，这也就是意味着同样长度的屏幕，iPhone 3GS 有 320 个物理像素，iPhone 4/4s 有 640 个物理像素。统一 iPhone 3GS 和 iPhone 4/4s 都是 320 个虚拟像素，在 iPhone 3GS 上，1 个虚拟像素换算成 1 个物理像素，在 iphone 4s 中，1 个虚拟像素换算成 2 个物理像素。 1 个虚拟像素被换算成几个物理像素，这个数值我们称之为设备像素比</li>
+<li>css像素：是一个相对值，不是绝对值，因此1px 的 CSS 像素并不一定等于 1px 的物理像素。CSS 中的像素单位是抽象的，只是一种规范，最终的显示是取决于物理设备的。物理设备根据设备像素比，决定该采用几个物理像素去显示 1px 的 CSS 像素。</li>
+</ul>
+<p>iPhone 以及部分安卓手机的设备像素比都在1以上，即，1px在屏幕上会用大于1个的物理像素去显示，从而使设备上成像更加清晰、细腻。</p>
+<h1 id="canvas-width、canvas-height-与-canvas-style-width、canvas-style-height-的区别"><a href="#canvas-width、canvas-height-与-canvas-style-width、canvas-style-height-的区别" class="headerlink" title="canvas.width、canvas.height 与 canvas.style.width、canvas.style.height 的区别"></a>canvas.width、canvas.height 与 canvas.style.width、canvas.style.height 的区别</h1><ol>
+<li>canvas.width / canvas.height 表示画布真实大小，并不可见</li>
+<li>canvas.style.width / canvas.style.height 表示画布输出到浏览器可见的/最终的大小</li>
+<li>不设置 canvas.width / canvas.height 时，默认按<code>300*150</code>处理，如果canvas.style也没设置，则 style.width 为空</li>
+</ol>
+<p>我们首先需要把 canvas 看作是一张画布，canvas.width 及 canvas.height 就是画布真实的大小。</p>
+<p>我们在浏览器上看到的画布的大小，是浏览器处理过 canvas.style.width、canvas.style.height 后的画布大小，所以 cavnas.style.width、canvas.style.height 决定了画布以怎样的形式进行缩放展示给页面。</p>
+<p>浏览器处理过后的的画布对应的 x 点、y 点都经过了下面公式的计算：</p>
+<p>canvas.width/canvas.style.width=100/x</p>
+<p>canvas.height/canvas.style.height=100/y</p>
+<p>通过以上公式，我们可以得到浏览器渲染后的画布上每个像素点对应的坐标：</p>
+<p>x=(canvas.style.width*100)/canvas.width</p>
+<p>y=(canvas.style.height*100)/canvas.height</p>
+<p>因此，canvas.width、canvas.height 与 canvas.style.width、canvas.style.height 必须保持等比例，才可以保证最后浏览器中展示的是等比例的。</p>
+<h1 id="canvas-模糊问题"><a href="#canvas-模糊问题" class="headerlink" title="canvas 模糊问题"></a>canvas 模糊问题</h1><h2 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h2><p>设备像素比大于 1 的设备，css 中的 1 px 使用多个物理像素渲染，在使用 canvas 渲染时，不管是否为高分屏， canvas 中的单位 1 （逻辑像素），就是 1 物理像素，从而导致了图片模糊。</p>
+<p>例如：在设备像素比为 2 的设备上，一张 css 设置为 100 * 100 的图片，实际渲染的是 200 * 200 物理像素，而使用 canvas 渲染时，由于单位 1 就是 1 物理像素，图片从原来的 200 * 200 物理像素变为 100 * 100 物理像素，但是 css 尺寸还与原来一致，所以图片看起来也模糊了。</p>
+<h2 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h2><ol>
+<li>获取设备像素比</li>
+<li>获取 canvas 的 width、height</li>
+<li>将 canvas.style.width、canvas.style.height 浏览器中的实际尺寸设置为canvas 的 width、height</li>
+<li>将 canvas 的 width、height 设置为 canvas 的 width、height 分别乘设备像素比</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">resizeCanvas</span>(<span class="params">canvas</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dpr = <span class="built_in">window</span>.devicePixelRatio ||</span><br><span class="line">      <span class="built_in">window</span>.webkitDevicePixelRatio ||</span><br><span class="line">      <span class="built_in">window</span>.mozDevicePixelRatio ||</span><br><span class="line">      <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">let</span> oldWidth = canvas.width;</span><br><span class="line">  <span class="keyword">let</span> oldHeight = canvas.height;</span><br><span class="line">  canvas.style.width = oldWidth;</span><br><span class="line">  canvas.style.height = oldHeight;</span><br><span class="line">  canvas.width = <span class="built_in">Math</span>.round(oldWidth*dpr);</span><br><span class="line">  canvas.height = <span class="built_in">Math</span>.round(height*dpr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>PS:还可以通过设置 canvas.getContext(“2d”) 暴露的 scale、translate 调整大小及位置。</p>
+
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/12/14/React-hooks（useState、useEffeect）实现原理/" rel="next" title="React hooks（useState、useEffeect） 实现原理">
+                <i class="fa fa-chevron-left"></i> React hooks（useState、useEffeect） 实现原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  
+  <p class="site-author-name" itemprop="name">Alice Jia</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+
+
+  <nav class="site-state motion-element">
+    
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+
+    
+
+    
+  </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设备像素比"><span class="nav-number">2.</span> <span class="nav-text">设备像素比</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#canvas-width、canvas-height-与-canvas-style-width、canvas-style-height-的区别"><span class="nav-number">3.</span> <span class="nav-text">canvas.width、canvas.height 与 canvas.style.width、canvas.style.height 的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#canvas-模糊问题"><span class="nav-number">4.</span> <span class="nav-text">canvas 模糊问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原因："><span class="nav-number">4.1.</span> <span class="nav-text">原因：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决："><span class="nav-number">4.2.</span> <span class="nav-text">解决：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Alice Jia</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

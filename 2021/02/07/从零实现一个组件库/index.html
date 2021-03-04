@@ -71,8 +71,8 @@
     scheme: 'Muse',
     version: '7.2.0',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
     fancybox: false,
     fastclick: false,
     lazyload: false,
@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="Alice&#39;s blog">
 <meta property="og:description" content="前言本文主要总结了基于 storybook 实现的 react 组件库的过程。 主要包括以下几个部分：  组件库脚手架的搭建 组件开发工具 支持 Less Icon 组件库 jest+enzyme自动化测试 代码提交及格式化规范 组件打包 npm发包 后续优化">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-02-07T09:07:01.036Z">
+<meta property="og:updated_time" content="2021-03-04T03:01:51.859Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从零实现一个组件库">
 <meta name="twitter:description" content="前言本文主要总结了基于 storybook 实现的 react 组件库的过程。 主要包括以下几个部分：  组件库脚手架的搭建 组件开发工具 支持 Less Icon 组件库 jest+enzyme自动化测试 代码提交及格式化规范 组件打包 npm发包 后续优化">
@@ -272,6 +272,14 @@
 
       
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
     </ul>
   
 
@@ -280,6 +288,27 @@
 
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
   
 </nav>
 
@@ -308,6 +337,8 @@
   
 
   
+    <div class="reading-progress-bar"></div>
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
@@ -317,7 +348,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/07/从零实现一个组件库/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Alice Jia">
+      <meta itemprop="name" content="Alice">
       <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -331,11 +362,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">从零实现一个组件库
+          <h2 class="post-title" itemprop="name headline">从零实现一个组件库
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -357,7 +388,7 @@
                 
               
 
-              <time title="创建时间：2021-02-07 17:03:10 / 修改时间：17:07:01" itemprop="dateCreated datePublished" datetime="2021-02-07T17:03:10+08:00">2021-02-07</time>
+              <time title="创建时间：2021-02-07 17:03:10" itemprop="dateCreated datePublished" datetime="2021-02-07T17:03:10+08:00">2021-02-07</time>
             </span>
           
 
@@ -365,8 +396,33 @@
             
 
             
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-03-04 11:01:51" itemprop="dateModified" datetime="2021-03-04T11:01:51+08:00">2021-03-04</time>
+              </span>
+            
           
 
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工程化/" itemprop="url" rel="index"><span itemprop="name">工程化</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -377,6 +433,14 @@
           
           
 
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
           
 
           
@@ -520,13 +584,13 @@
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 用于最后打包编译</span><br><span class="line"> */</span><br><span class="line"> &#123;</span><br><span class="line">    <span class="attr">"extends"</span>: <span class="string">"./tsconfig.json"</span>,</span><br><span class="line">    <span class="attr">"compilerOptions"</span>: &#123;</span><br><span class="line">      // 文件输出目录</span><br><span class="line">      "outDir": "lib",</span><br><span class="line">      "declaration": true,</span><br><span class="line">      "noEmit": false,</span><br><span class="line">      "emitDeclarationOnly": true</span><br><span class="line">    &#125;,</span><br><span class="line">    // 要编译哪些文件</span><br><span class="line">    "include": ["src/components"],</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>package.json</code> 添加 scripts <code>&quot;build:types&quot;: &quot;tsc -p tsconfig.build.json&quot;</code></p>
-<h2 id="组件打包-1"><a href="#组件打包-1" class="headerlink" title="组件打包"></a>组件打包</h2><p>组件打包有两套方案：一套是 es module 模块化方案，一套是 common module 模块化方案。</p>
+<h2 id="组件打包-1"><a href="#组件打包-1" class="headerlink" title="组件打包"></a>组件打包</h2><p>组件打包有两套方案：一套是 esm 模块化方案，一套是 cjs 模块化方案。</p>
 <p>组件的打包选择使用 gulp 分别处理样式文件和 TypeScript 文件，gulp 配置文件为 <code>gulpfile.js</code> </p>
 <h3 id="TypeScript-文件打包配置"><a href="#TypeScript-文件打包配置" class="headerlink" title="TypeScript 文件打包配置"></a>TypeScript 文件打包配置</h3><p>由于需要生成两套不同打包方式的代码，我们需要用到 <code>babel</code> 来帮助我们，将代码编译为符合不同模块化规范的代码。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> gulpBabel = <span class="built_in">require</span>(<span class="string">'gulp-babel'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> paths = &#123;</span><br><span class="line">  build: &#123;</span><br><span class="line">    esm: <span class="string">'es'</span>, <span class="comment">// es moduel</span></span><br><span class="line">    lib: <span class="string">'lib'</span> <span class="comment">// common module</span></span><br><span class="line">  &#125;,</span><br><span class="line">  styles: <span class="string">'src/components/**/*.css'</span>,</span><br><span class="line">  scripts: [<span class="string">'src/components/**/*.&#123;ts,tsx&#125;'</span>], <span class="comment">// 脚本文件路径</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 配置 babel</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getBabelConfig</span>(<span class="params">&#123; modules &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    presets: [</span><br><span class="line">      <span class="string">'@babel/preset-typescript'</span>,</span><br><span class="line">      [</span><br><span class="line">        <span class="string">'@babel/preset-env'</span>,</span><br><span class="line">        &#123;</span><br><span class="line">          targets: <span class="string">'defaults'</span>,</span><br><span class="line">          modules,</span><br><span class="line">        &#125;,</span><br><span class="line">      ],</span><br><span class="line">      <span class="string">'@babel/preset-react'</span>,</span><br><span class="line">    ],</span><br><span class="line">    plugins: [<span class="string">'@babel/plugin-proposal-class-properties'</span>],</span><br><span class="line">    exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compilesm</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; build, scripts &#125; = paths;</span><br><span class="line">  <span class="keyword">return</span> gulp</span><br><span class="line">    .src(scripts)</span><br><span class="line">    .pipe(gulpBabel(</span><br><span class="line">      getBabelConfig(&#123;</span><br><span class="line">        modules: <span class="literal">false</span> <span class="comment">// modules 为 false 时，生成的为 es module</span></span><br><span class="line">      &#125;)</span><br><span class="line">    ))</span><br><span class="line">    .pipe(tsProject())</span><br><span class="line">    .pipe(gulp.dest(build.esm)); <span class="comment">// 生成的文件存放到 es 文件夹下</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compilecjs</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; build, scripts &#125; = paths;</span><br><span class="line">  <span class="keyword">return</span> gulp</span><br><span class="line">    .src(scripts)</span><br><span class="line">    .pipe(gulpBabel(</span><br><span class="line">      getBabelConfig(&#123;</span><br><span class="line">        modules: <span class="string">"commonjs"</span> <span class="comment">// modules 为 commonjs 时，生成的为 common module</span></span><br><span class="line">      &#125;)</span><br><span class="line">    ))</span><br><span class="line">    .pipe(tsProject())</span><br><span class="line">    .pipe(gulp.dest(build.lib)); <span class="comment">// 生成的文件存放到 lib 文件夹下</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> gulpBabel = <span class="built_in">require</span>(<span class="string">'gulp-babel'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> paths = &#123;</span><br><span class="line">  build: &#123;</span><br><span class="line">    esm: <span class="string">'es'</span>, <span class="comment">// es moduel</span></span><br><span class="line">    lib: <span class="string">'lib'</span> <span class="comment">// commonJS module</span></span><br><span class="line">  &#125;,</span><br><span class="line">  styles: <span class="string">'src/components/**/*.css'</span>,</span><br><span class="line">  scripts: [<span class="string">'src/components/**/*.&#123;ts,tsx&#125;'</span>], <span class="comment">// 脚本文件路径</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 配置 babel</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getBabelConfig</span>(<span class="params">&#123; modules &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    presets: [</span><br><span class="line">      <span class="string">'@babel/preset-typescript'</span>,</span><br><span class="line">      [</span><br><span class="line">        <span class="string">'@babel/preset-env'</span>,</span><br><span class="line">        &#123;</span><br><span class="line">          targets: <span class="string">'defaults'</span>,</span><br><span class="line">          modules,</span><br><span class="line">        &#125;,</span><br><span class="line">      ],</span><br><span class="line">      <span class="string">'@babel/preset-react'</span>,</span><br><span class="line">    ],</span><br><span class="line">    plugins: [<span class="string">'@babel/plugin-proposal-class-properties'</span>],</span><br><span class="line">    exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compilesm</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; build, scripts &#125; = paths;</span><br><span class="line">  <span class="keyword">return</span> gulp</span><br><span class="line">    .src(scripts)</span><br><span class="line">    .pipe(gulpBabel(</span><br><span class="line">      getBabelConfig(&#123;</span><br><span class="line">        modules: <span class="literal">false</span> <span class="comment">// modules 为 false 时，生成的为 es module</span></span><br><span class="line">      &#125;)</span><br><span class="line">    ))</span><br><span class="line">    .pipe(tsProject())</span><br><span class="line">    .pipe(gulp.dest(build.esm)); <span class="comment">// 生成的文件存放到 es 文件夹下</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compilecjs</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; build, scripts &#125; = paths;</span><br><span class="line">  <span class="keyword">return</span> gulp</span><br><span class="line">    .src(scripts)</span><br><span class="line">    .pipe(gulpBabel(</span><br><span class="line">      getBabelConfig(&#123;</span><br><span class="line">        modules: <span class="string">"commonjs"</span> <span class="comment">// modules 为 commonjs 时，生成的为 commonJS</span></span><br><span class="line">      &#125;)</span><br><span class="line">    ))</span><br><span class="line">    .pipe(tsProject())</span><br><span class="line">    .pipe(gulp.dest(build.lib)); <span class="comment">// 生成的文件存放到 lib 文件夹下</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="样式文件打包配置"><a href="#样式文件打包配置" class="headerlink" title="样式文件打包配置"></a>样式文件打包配置</h3><p>针对样式文件，由于已有项目都是使用 less，所以并没有将 less 转换为 css</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> postcss = <span class="built_in">require</span>(<span class="string">'gulp-postcss'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将样式拷贝到 esm</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">copyCssToesm</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> gulp.src(paths.styles).pipe(postcss()).pipe(gulp.dest(paths.build.esm));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将样式拷贝到 lib</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">copyCssTocjs</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> gulp.src(paths.styles).pipe(postcss()).pipe(gulp.dest(paths.build.lib));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将样式拷贝到 esm</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">copyCssToesm</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> gulp.src(paths.styles).pipe(gulp.dest(paths.build.esm));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将样式拷贝到 lib</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">copyCssTocjs</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> gulp.src(paths.styles).pipe(gulp.dest(paths.build.lib));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="执行-gulp-task"><a href="#执行-gulp-task" class="headerlink" title="执行 gulp task"></a>执行 gulp task</h3><p>将我们写好的 gulp task 组合起来，并运行 <code>gulp</code> </p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> buildScripts = gulp.series(compilesm, compilecjs);</span><br><span class="line"><span class="keyword">const</span> buildCss = gulp.series(copyCssToesm, copyCssTocjs);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> build = gulp.parallel(buildScripts, buildCss);</span><br><span class="line"></span><br><span class="line">exports.build = build;</span><br><span class="line"></span><br><span class="line">exports.default = build;</span><br></pre></td></tr></table></figure>
@@ -659,7 +723,7 @@
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   
-  <p class="site-author-name" itemprop="name">Alice Jia</p>
+  <p class="site-author-name" itemprop="name">Alice</p>
   <div class="site-description motion-element" itemprop="description"></div>
 </div>
 
@@ -686,8 +750,6 @@
           
         
         
-        
-          
         
           
         
@@ -771,6 +833,14 @@
 
 
 
+  <div class="chat motion-element">
+  
+  
+  <i class="fa fa-comment"></i>
+    Chat
+  
+  </div>
+
 
 
 
@@ -804,6 +874,13 @@
       
 
       
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
 
     </div>
   </aside>
@@ -820,7 +897,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Alice Jia</span>
+  <span class="author" itemprop="copyrightHolder">Alice</span>
 
   
 
@@ -842,6 +919,32 @@
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
 
 
 
@@ -854,11 +957,6 @@
       </div>
     </footer>
 
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
     
 
     
@@ -896,6 +994,8 @@
 
 
 
+  
+
 
 
   
@@ -906,6 +1006,9 @@
 
   
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
 
 
 
@@ -933,6 +1036,11 @@
   <script src="/js/next-boot.js?v=7.2.0"></script>
 
   
+  <script src="/js/js.cookie.js?v=7.2.0"></script>
+  <script src="/js/scroll-cookie.js?v=7.2.0"></script>
+
+
+  
 
   
 
@@ -940,13 +1048,331 @@
 
   
 
-  
-
 
   
 
 
   
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
 
 
 
